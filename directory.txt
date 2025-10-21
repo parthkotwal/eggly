@@ -1,0 +1,53 @@
+eggly
+├── backend
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── migrations
+│   │   │   └── __init__.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── db.sqlite3
+│   ├── Dockerfile
+│   ├── eggly_backend
+│   │   ├── __init__.py
+│   │   ├── asgi.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── manage.py
+│   ├── ml
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── migrations
+│   │   │   └── __init__.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── requirements.txt
+│   └── wait-for-db.sh
+├── directory.txt
+├── docker-compose.yml
+└── frontend
+    ├── Dockerfile
+    ├── jsconfig.json
+    ├── next.config.mjs
+    ├── package-lock.json
+    ├── package.json
+    ├── postcss.config.mjs
+    ├── public
+    │   ├── file.svg
+    │   ├── globe.svg
+    │   ├── next.svg
+    │   ├── vercel.svg
+    │   └── window.svg
+    ├── README.md
+    └── src
+        └── app
+            ├── favicon.ico
+            ├── globals.css
+            ├── layout.js
+            └── page.js
