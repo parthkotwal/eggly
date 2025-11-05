@@ -1,4 +1,3 @@
-import json
 import os
 from pathlib import Path
 from typing import Dict, Iterable, List, Sequence, Tuple, Any
@@ -7,7 +6,10 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
-from config import CUISINES, FLAVORS, PRIORS, TEXTURES
+try:
+    from .config import CUISINES, FLAVORS, PRIORS, TEXTURES
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from config import CUISINES, FLAVORS, PRIORS, TEXTURES
 
 
 FEATURE_PREFIX_WEIGHTS: Dict[str, float] = {
@@ -21,8 +23,6 @@ FEATURE_COLUMNS: List[str] = (
     + [f"flv_{name}" for name in FLAVORS]
     + [f"tex_{name}" for name in TEXTURES]
 )
-
-_CACHED = {"path": None, "mtime": None, "X": None, "df": None}
 
 #-----PRIVATE METHODS-----
 def _build_feature_weights() -> np.ndarray:
@@ -112,31 +112,16 @@ def _load_candidate_frame() -> pd.DataFrame:
     if env_path:
         candidate_paths.append(Path(env_path))
     base_dir = Path(__file__).resolve().parent
-    candidate_paths.extend(
-        [
-            base_dir / "candidates.parquet",
-            base_dir / "candidates.feather",
-            base_dir / "candidates.csv",
-            base_dir / "candidates.json",
-        ]
-    )
+    candidate_paths.append(base_dir / "candidates.pkl")
     for path in candidate_paths:
         if not path.exists():
             continue
-        suffix = path.suffix.lower()
-        if suffix == ".parquet":
-            return pd.read_parquet(path)
-        if suffix in {".feather", ".ft"}:
-            return pd.read_feather(path)
-        if suffix == ".csv":
-            return pd.read_csv(path)
-        if suffix == ".json":
-            with path.open() as fh:
-                payload = json.load(fh)
-            return pd.DataFrame(payload)
+        if path.suffix.lower() not in {".pkl", ".pickle"}:
+            continue
+        return pd.read_pickle(path)
     raise FileNotFoundError(
-        "Candidate data not found. Provide a dataset via EGGLY_CANDIDATE_DATA "
-        "or place a candidates.(parquet|feather|csv|json) file next to service.py."
+        "Candidate data not found. Provide a pickle dataset via EGGLY_CANDIDATE_DATA "
+        "or place a candidates.pkl file next to service.py."
     )
 
 #-----PUBLIC METHODS-----
@@ -344,7 +329,10 @@ def match(profile: dict, top_k: int = 5) -> List[dict]:
         }
         id_col = next((col for col in ("id", "candidate_id", "profile_id", "user_id") if col in candidate_row.index), None)
         if id_col:
-            result["id"] = candidate_row[id_col]
+            candidate_id = candidate_row[id_col]
+            if hasattr(candidate_id, "item"):
+                candidate_id = candidate_id.item()
+            result["id"] = candidate_id
         results.append(result)
     return results
 

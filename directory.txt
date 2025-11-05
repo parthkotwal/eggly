@@ -22,9 +22,18 @@ eggly
 │   │   ├── __init__.py
 │   │   ├── admin.py
 │   │   ├── apps.py
+│   │   ├── config.py
+│   │   ├── generate_candidates.py
+│   │   ├── manual_match.py
 │   │   ├── migrations
 │   │   │   └── __init__.py
 │   │   ├── models.py
+│   │   ├── notebooks
+│   │   │   ├── representation_v1.0.ipynb
+│   │   │   ├── representation_v1.1.ipynb
+│   │   │   └── representation_v1.1.py
+│   │   ├── service.py
+│   │   ├── synthetic.py
 │   │   ├── tests.py
 │   │   └── views.py
 │   ├── requirements.txt
