@@ -1,20 +1,9 @@
-# Eggly ML Restart
+# eggly
 
-This repo has been reset around the ML and learning work.
+Social media for taste.
 
-## Current workspace
+Eggly is a food recommendation and taste-matching system. It represents users and foods in a shared embedding space so it can answer questions like "what should I eat?", "who shares my taste?", and "who would like this dish?" — and learn from what people actually do.
 
-- `ml/config.py`: domain vocabulary and hand-authored priors.
-- `ml/service.py`: feature-vector construction, similarity scoring, constraints, and match explanations.
-- `ml/synthetic.py`: synthetic profile generation from the priors.
-- `ml/generate_candidates.py`: CLI for generating local candidate datasets.
-- `ml/manual_match.py`: CLI smoke test for matching a sample profile.
-- `ml/notebooks/`: prior notebook explorations retained for reference.
+The long-term vision is a social layer on top: food-based communities, meetups, pop-up dinners, virtual tastings. For now, the project is focused on the recommendation engine underneath — the **Yolk** — because that's the hard, interesting part and everything else can be built on top of it later.
 
-## Archived app shell
-
-The old Django, Next.js, Docker, editor, and environment scaffolding was moved to:
-
-`archive/legacy-app-20260703/`
-
-That archive is intentionally kept out of the active project shape so the ML work can restart without the old app structure driving decisions.
+See `ARCHITECTURE.md` for the technical design and `AGENTS.md` for how coding agents should collaborate on this repo.

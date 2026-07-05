@@ -1,8 +1,9 @@
+data/
+*.zip
+.venv/
 venv/
 __pycache__/
-frontend/node_modules/
-backend/db.sqlite3
+*.pyc
+.ipynb_checkpoints/
+*.egg-info/
 .env
-backend/.env
-backend/ml/_artifacts/
-ml/_artifacts/
