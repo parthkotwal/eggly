@@ -15,4 +15,6 @@ dependencies = [
     "jupyter",
     "sentence-transformers",
     "pyarrow",
+    "implicit",
+    "scipy",
 ]
